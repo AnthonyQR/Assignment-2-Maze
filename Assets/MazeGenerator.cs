@@ -1,12 +1,19 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class MazeGenerator : MonoBehaviour
 {
     [SerializeField]
+    private NavMeshSurface _mazeNavMeshSurface;
+
+    [SerializeField]
     private GameObject _playerPrefab;
+
+    [SerializeField]
+    private GameObject _enemyPrefab;
 
     [Header("Maze")]
     [SerializeField]
@@ -34,6 +41,14 @@ public class MazeGenerator : MonoBehaviour
 
         GenerateMaze(null, _mazeGrid[0, 0]);
         Instantiate(_playerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+
+        // Spawn enemy at random position in the maze, other than where the player starts.
+        int enemyX = Random.Range(1, _mazeWidth);
+        int enemyZ = Random.Range(1, _mazeDepth);
+        Instantiate(_enemyPrefab, new Vector3(enemyX, 0, enemyZ), Quaternion.identity);
+
+        // Rebuild NavMesh after maze generation.
+        _mazeNavMeshSurface.BuildNavMesh();
     }
 
     private void GenerateMaze(MazeCell previousCell, MazeCell currentCell)
