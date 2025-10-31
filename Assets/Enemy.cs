@@ -6,10 +6,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject _target;
     [SerializeField] private NavMeshAgent _navMeshAgent;
 
-    private void Start()
-    {
-        
-    }
     private void FixedUpdate()
     {
         if (_target == null)
