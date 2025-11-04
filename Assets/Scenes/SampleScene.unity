@@ -490,7 +490,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dbc0da15503506d4a9b485d73b2f4589, type: 2}
+  - {fileID: 2100000, guid: 3bd1c1d32e3477647a35be2b707aa482, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -579,7 +579,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 968807a13b5004b478ac9216ffa3583f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mazeNavMeshSurface: {fileID: 0}
   _playerPrefab: {fileID: 8660373911842123714, guid: 38665a55fb07ee947ac842f936c2f6dc, type: 3}
+  _enemyPrefab: {fileID: 0}
   _mazeCellPrefab: {fileID: 8261977447303566686, guid: 2bd028db65f9b6a439ce9199a10adad9, type: 3}
   _mazeWidth: 20
   _mazeDepth: 20
