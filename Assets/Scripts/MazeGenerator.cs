@@ -40,7 +40,7 @@ public class MazeGenerator : MonoBehaviour
         }
 
         GenerateMaze(null, _mazeGrid[0, 0]);
-        Instantiate(_playerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        Instantiate(_playerPrefab, new Vector3(0, 0.25f, 0), Quaternion.identity);
 
         // Spawn enemy at random position in the maze, at least half of the width/depth.
         int enemyX = Random.Range(_mazeWidth / 2, _mazeWidth);
