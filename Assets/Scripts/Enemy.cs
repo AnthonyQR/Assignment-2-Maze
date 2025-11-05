@@ -25,6 +25,15 @@ public class Enemy : MonoBehaviour
         _navMeshAgent.SetDestination(_target.transform.position);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Enemy caught the player! Resetting player position.");
+            other.gameObject.GetComponent<PlayerMovement>().ResetPosition();
+        }
+    }
+
     public void ResetPosition()
     {
         _navMeshAgent.Warp(_startingPosition);
