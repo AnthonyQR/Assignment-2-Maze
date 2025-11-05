@@ -93,4 +93,11 @@ public class PlayerMovement : MonoBehaviour
     {
         _playerCamera.enabled = !_playerCamera.enabled;
     }
+
+    public void ResetPosition()
+    {
+        _controller.enabled = false;
+        transform.position = new Vector3(0, 0.25f, 0);
+        _controller.enabled = true;
+    }
 }

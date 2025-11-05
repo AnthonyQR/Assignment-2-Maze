@@ -127,6 +127,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reset"",
+                    ""type"": ""Button"",
+                    ""id"": ""98a6c2e8-4204-45a9-bb42-5a042dd1683b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -294,6 +303,17 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""action"": ""ChangePerspective"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ab7e2944-4aba-4f02-9ad4-91017e02e37a"",
+                    ""path"": ""<Keyboard>/home"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reset"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -367,6 +387,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         m_Ingame_Look = m_Ingame.FindAction("Look", throwIfNotFound: true);
         m_Ingame_GodMode = m_Ingame.FindAction("GodMode", throwIfNotFound: true);
         m_Ingame_ChangePerspective = m_Ingame.FindAction("ChangePerspective", throwIfNotFound: true);
+        m_Ingame_Reset = m_Ingame.FindAction("Reset", throwIfNotFound: true);
     }
 
     ~@PlayerActions()
@@ -451,6 +472,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Ingame_Look;
     private readonly InputAction m_Ingame_GodMode;
     private readonly InputAction m_Ingame_ChangePerspective;
+    private readonly InputAction m_Ingame_Reset;
     /// <summary>
     /// Provides access to input actions defined in input action map "Ingame".
     /// </summary>
@@ -478,6 +500,10 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Ingame/ChangePerspective".
         /// </summary>
         public InputAction @ChangePerspective => m_Wrapper.m_Ingame_ChangePerspective;
+        /// <summary>
+        /// Provides access to the underlying input action "Ingame/Reset".
+        /// </summary>
+        public InputAction @Reset => m_Wrapper.m_Ingame_Reset;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -516,6 +542,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @ChangePerspective.started += instance.OnChangePerspective;
             @ChangePerspective.performed += instance.OnChangePerspective;
             @ChangePerspective.canceled += instance.OnChangePerspective;
+            @Reset.started += instance.OnReset;
+            @Reset.performed += instance.OnReset;
+            @Reset.canceled += instance.OnReset;
         }
 
         /// <summary>
@@ -539,6 +568,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @ChangePerspective.started -= instance.OnChangePerspective;
             @ChangePerspective.performed -= instance.OnChangePerspective;
             @ChangePerspective.canceled -= instance.OnChangePerspective;
+            @Reset.started -= instance.OnReset;
+            @Reset.performed -= instance.OnReset;
+            @Reset.canceled -= instance.OnReset;
         }
 
         /// <summary>
@@ -672,5 +704,12 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnChangePerspective(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Reset" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnReset(InputAction.CallbackContext context);
     }
 }
