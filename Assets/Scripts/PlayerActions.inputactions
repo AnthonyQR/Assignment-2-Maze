@@ -32,6 +32,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ChangePerspective",
+                    "type": "Button",
+                    "id": "42414789-f02f-4dfd-b72e-a58d88e4e332",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -181,11 +190,22 @@
                 {
                     "name": "",
                     "id": "121895cc-8c8e-4b3b-b078-cc6f657ad6b2",
-                    "path": "<Keyboard>/home",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "GodMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ee41da56-6041-4d30-b541-b5796ac61b7b",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangePerspective",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

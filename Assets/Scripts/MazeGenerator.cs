@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
 
@@ -8,6 +6,9 @@ public class MazeGenerator : MonoBehaviour
 {
     [SerializeField]
     private NavMeshSurface _mazeNavMeshSurface;
+
+    [SerializeField]
+    private Camera _topDownCamera;
 
     [SerializeField]
     private GameObject _playerPrefab;
@@ -41,6 +42,9 @@ public class MazeGenerator : MonoBehaviour
 
         GenerateMaze(null, _mazeGrid[0, 0]);
         Instantiate(_playerPrefab, new Vector3(0, 0.25f, 0), Quaternion.identity);
+
+        _topDownCamera.transform.position = new Vector3(_mazeWidth / 2f - 0.5f, _mazeWidth, _mazeDepth / 2f - 0.5f);
+        _topDownCamera.orthographicSize = Mathf.Max(_mazeWidth, _mazeDepth) / 2f;
 
         // Spawn enemy at random position in the maze, at least half of the width/depth.
         int enemyX = Random.Range(_mazeWidth / 2, _mazeWidth);

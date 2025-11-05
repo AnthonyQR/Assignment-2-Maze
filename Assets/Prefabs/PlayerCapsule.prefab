@@ -311,10 +311,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controller: {fileID: 7435245800304058660}
-  defaultLayer:
+  _defaultLayer:
     serializedVersion: 2
-    m_Bits: 0
-  exclusionLayer:
+    m_Bits: 1
+  _exclusionLayer:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 64
+  _playerCamera: {fileID: 1200878801213791300}
   _movementSpeed: 1

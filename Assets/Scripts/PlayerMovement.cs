@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
@@ -6,8 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
     // Get character controller to move
     [SerializeField] private CharacterController _controller;
-    [SerializeField] private LayerMask defaultLayer;
-    [SerializeField] private LayerMask exclusionLayer;
+    [SerializeField] private LayerMask _defaultLayer;
+    [SerializeField] private LayerMask _exclusionLayer;
+    [SerializeField] private Camera _playerCamera;
     [Space]
 
     // Movement variables
@@ -17,8 +18,9 @@ public class PlayerMovement : MonoBehaviour
     private PlayerActions _inputActions;
     private InputAction _movement;
     private InputAction _godMode;
+    private InputAction _changePerspective;
 
-    private bool _godModeEnabled;
+    private bool _godModeEnabled = false;
 
     // Get character controller & player inputs
     private void Awake()
@@ -32,16 +34,22 @@ public class PlayerMovement : MonoBehaviour
     {
         _movement = _inputActions.Ingame.Movement;
         _godMode = _inputActions.Ingame.GodMode;
+        _changePerspective = _inputActions.Ingame.ChangePerspective;
+
         _godMode.performed += ToggleGodMode;
+        _changePerspective.performed += ToggleCamera; // Placeholder for perspective change
         _godMode.Enable();
         _movement.Enable();
+        _changePerspective.Enable();
     }
 
     private void OnDisable()
     {
         _godMode.performed -= ToggleGodMode;
+        _changePerspective.performed -= ToggleCamera;
         _movement.Disable();
         _godMode.Disable();
+        _changePerspective.Disable();
     }
 
 
@@ -71,13 +79,18 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!_godModeEnabled)
         {
-            _controller.excludeLayers = exclusionLayer;
+            _controller.excludeLayers = _exclusionLayer;
             _godModeEnabled = true;
         }
         else
         {
-            _controller.excludeLayers = defaultLayer;
+            _controller.excludeLayers = _defaultLayer;
             _godModeEnabled = false;
         }
+    }
+
+    private void ToggleCamera(InputAction.CallbackContext callback)
+    {
+        _playerCamera.enabled = !_playerCamera.enabled;
     }
 }
