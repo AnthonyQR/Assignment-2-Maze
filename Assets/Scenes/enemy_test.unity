@@ -662,8 +662,9 @@ MonoBehaviour:
   _playerPrefab: {fileID: 8660373911842123714, guid: 38665a55fb07ee947ac842f936c2f6dc, type: 3}
   _enemyPrefab: {fileID: 5251990126343346448, guid: 74b59aeaccf8ded45978f6e71893c28c, type: 3}
   _mazeCellPrefab: {fileID: 8261977447303566686, guid: 2bd028db65f9b6a439ce9199a10adad9, type: 3}
-  _mazeWidth: 20
-  _mazeDepth: 20
+  _mazeEndPrefab: {fileID: 7886822779014690607, guid: 32875460902e0e347b2818a2cd0219a5, type: 3}
+  _mazeWidth: 10
+  _mazeDepth: 10
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

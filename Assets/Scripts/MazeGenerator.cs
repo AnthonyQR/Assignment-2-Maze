@@ -26,6 +26,9 @@ public class MazeGenerator : MonoBehaviour
     private MazeCell _mazeCellPrefab;
 
     [SerializeField]
+    private GameObject _mazeEndPrefab;
+
+    [SerializeField]
     private int _mazeWidth;
 
     [SerializeField] 
@@ -55,6 +58,10 @@ public class MazeGenerator : MonoBehaviour
         int enemyX = Random.Range(_mazeWidth / 2, _mazeWidth);
         int enemyZ = Random.Range(_mazeDepth / 2, _mazeDepth);
         GameObject enemy = Instantiate(_enemyPrefab, new Vector3(enemyX, 0, enemyZ), Quaternion.identity);
+
+        Instantiate(_mazeEndPrefab,
+            new Vector3(_mazeWidth - 1, 0, _mazeDepth - 1),
+            Quaternion.identity);
 
         // Rebuild NavMesh after maze generation.
         _mazeNavMeshSurface.BuildNavMesh();
