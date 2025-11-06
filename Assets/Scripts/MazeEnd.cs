@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MazeEnd : MonoBehaviour
 {
@@ -16,6 +16,7 @@ public class MazeEnd : MonoBehaviour
             other.GetComponent<PlayerMovement>().enabled = false;
             _mazeEndCanvas.SetActive(true);
             Destroy(GameObject.FindGameObjectWithTag("Enemy"));
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 }
