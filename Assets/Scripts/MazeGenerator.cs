@@ -1,14 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
 
 public class MazeGenerator : MonoBehaviour
 {
+    [Header("Scene Objects")]
     [SerializeField]
     private NavMeshSurface _mazeNavMeshSurface;
 
+    [SerializeField]
+    private GameManager _gameManager;
+
+    [SerializeField]
+    private Camera _topDownCamera;
+
+    [Header("Prefabs")]
     [SerializeField]
     private GameObject _playerPrefab;
 
@@ -43,12 +49,15 @@ public class MazeGenerator : MonoBehaviour
         }
 
         GenerateMaze(null, _mazeGrid[0, 0]);
-        Instantiate(_playerPrefab, new Vector3(0, 0.25f, 0), Quaternion.identity);
+        GameObject player = Instantiate(_playerPrefab, new Vector3(0, 0.25f, 0), Quaternion.identity);
+
+        _topDownCamera.transform.position = new Vector3(_mazeWidth / 2f - 0.5f, _mazeWidth, _mazeDepth / 2f - 0.5f);
+        _topDownCamera.orthographicSize = Mathf.Max(_mazeWidth, _mazeDepth) / 2f;
 
         // Spawn enemy at random position in the maze, at least half of the width/depth.
         int enemyX = Random.Range(_mazeWidth / 2, _mazeWidth);
         int enemyZ = Random.Range(_mazeDepth / 2, _mazeDepth);
-        Instantiate(_enemyPrefab, new Vector3(enemyX, 0, enemyZ), Quaternion.identity);
+        GameObject enemy = Instantiate(_enemyPrefab, new Vector3(enemyX, 0, enemyZ), Quaternion.identity);
 
         Instantiate(_mazeEndPrefab,
             new Vector3(_mazeWidth - 1, 0, _mazeDepth - 1),
@@ -56,6 +65,10 @@ public class MazeGenerator : MonoBehaviour
 
         // Rebuild NavMesh after maze generation.
         _mazeNavMeshSurface.BuildNavMesh();
+
+        // Assign player and enemy to GameManager.
+        _gameManager.Player = player;
+        _gameManager.Enemy = enemy;
     }
 
     private void GenerateMaze(MazeCell previousCell, MazeCell currentCell)
