@@ -540,7 +540,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -925,6 +925,7 @@ GameObject:
   - component: {fileID: -962906249137209597}
   - component: {fileID: 6709358193751766483}
   - component: {fileID: 7026734719311738046}
+  - component: {fileID: 2991482526509451391}
   m_Layer: 0
   m_Name: PlayerCapsule
   m_TagString: Player
@@ -1117,5 +1118,32 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a03a96c5d1e99b4409ddd79098abd9ab, type: 3}
   - {fileID: 8300000, guid: f0f794c67e9233d468a38d165590d253, type: 3}
   - {fileID: 8300000, guid: 0bc66974c41ff8c4fa15f46d21ad3548, type: 3}
-  _walkingAudioPlayer: {fileID: 8555658445639661457}
-  _collisionAudioPlayer: {fileID: 3819279720452882787}
+  _collisionSounds:
+  - {fileID: 8300000, guid: 4f8f55851d5f4784f8da30798b0bcb44, type: 3}
+  - {fileID: 8300000, guid: 229caf504b05e0f4b82462f7cf47861d, type: 3}
+  - {fileID: 8300000, guid: 5e82e523d3e6ee84db5c83a16b2d32d9, type: 3}
+  _walkingAudioSource: {fileID: 8555658445639661457}
+  _collisionAudioSource: {fileID: 3819279720452882787}
+--- !u!136 &2991482526509451391
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8660373911842123714}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}

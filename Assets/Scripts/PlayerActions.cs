@@ -136,6 +136,33 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleMusic"",
+                    ""type"": ""Button"",
+                    ""id"": ""e875ec99-eaac-4022-97dc-3d30f9940330"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleDayNight"",
+                    ""type"": ""Button"",
+                    ""id"": ""f8ecf5a0-b9dd-429f-948d-8918d71fa61e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleFog"",
+                    ""type"": ""Button"",
+                    ""id"": ""7c3adf3a-245f-4d5c-9918-e61290d30bbc"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -358,6 +385,72 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""action"": ""Reset"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""169c5f1f-1fde-4671-bc24-342c1513b6e9"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""ToggleMusic"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""00670046-20a1-49c1-bc7c-dd1620d7be19"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleMusic"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2874c696-a141-4110-a589-c4438ecd2fd9"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleDayNight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ddfb8d39-cf9f-4b56-b61f-c677dc59ed72"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleDayNight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d32c9af5-29d2-4f58-be9e-32577e840ae3"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleFog"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b814dfa9-fff8-4e53-91b3-a3c85476dcc2"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleFog"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -432,6 +525,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         m_Ingame_GodMode = m_Ingame.FindAction("GodMode", throwIfNotFound: true);
         m_Ingame_ChangePerspective = m_Ingame.FindAction("ChangePerspective", throwIfNotFound: true);
         m_Ingame_Reset = m_Ingame.FindAction("Reset", throwIfNotFound: true);
+        m_Ingame_ToggleMusic = m_Ingame.FindAction("ToggleMusic", throwIfNotFound: true);
+        m_Ingame_ToggleDayNight = m_Ingame.FindAction("ToggleDayNight", throwIfNotFound: true);
+        m_Ingame_ToggleFog = m_Ingame.FindAction("ToggleFog", throwIfNotFound: true);
     }
 
     ~@PlayerActions()
@@ -517,6 +613,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Ingame_GodMode;
     private readonly InputAction m_Ingame_ChangePerspective;
     private readonly InputAction m_Ingame_Reset;
+    private readonly InputAction m_Ingame_ToggleMusic;
+    private readonly InputAction m_Ingame_ToggleDayNight;
+    private readonly InputAction m_Ingame_ToggleFog;
     /// <summary>
     /// Provides access to input actions defined in input action map "Ingame".
     /// </summary>
@@ -548,6 +647,18 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Ingame/Reset".
         /// </summary>
         public InputAction @Reset => m_Wrapper.m_Ingame_Reset;
+        /// <summary>
+        /// Provides access to the underlying input action "Ingame/ToggleMusic".
+        /// </summary>
+        public InputAction @ToggleMusic => m_Wrapper.m_Ingame_ToggleMusic;
+        /// <summary>
+        /// Provides access to the underlying input action "Ingame/ToggleDayNight".
+        /// </summary>
+        public InputAction @ToggleDayNight => m_Wrapper.m_Ingame_ToggleDayNight;
+        /// <summary>
+        /// Provides access to the underlying input action "Ingame/ToggleFog".
+        /// </summary>
+        public InputAction @ToggleFog => m_Wrapper.m_Ingame_ToggleFog;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -589,6 +700,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Reset.started += instance.OnReset;
             @Reset.performed += instance.OnReset;
             @Reset.canceled += instance.OnReset;
+            @ToggleMusic.started += instance.OnToggleMusic;
+            @ToggleMusic.performed += instance.OnToggleMusic;
+            @ToggleMusic.canceled += instance.OnToggleMusic;
+            @ToggleDayNight.started += instance.OnToggleDayNight;
+            @ToggleDayNight.performed += instance.OnToggleDayNight;
+            @ToggleDayNight.canceled += instance.OnToggleDayNight;
+            @ToggleFog.started += instance.OnToggleFog;
+            @ToggleFog.performed += instance.OnToggleFog;
+            @ToggleFog.canceled += instance.OnToggleFog;
         }
 
         /// <summary>
@@ -615,6 +735,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Reset.started -= instance.OnReset;
             @Reset.performed -= instance.OnReset;
             @Reset.canceled -= instance.OnReset;
+            @ToggleMusic.started -= instance.OnToggleMusic;
+            @ToggleMusic.performed -= instance.OnToggleMusic;
+            @ToggleMusic.canceled -= instance.OnToggleMusic;
+            @ToggleDayNight.started -= instance.OnToggleDayNight;
+            @ToggleDayNight.performed -= instance.OnToggleDayNight;
+            @ToggleDayNight.canceled -= instance.OnToggleDayNight;
+            @ToggleFog.started -= instance.OnToggleFog;
+            @ToggleFog.performed -= instance.OnToggleFog;
+            @ToggleFog.canceled -= instance.OnToggleFog;
         }
 
         /// <summary>
@@ -755,5 +884,26 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnReset(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ToggleMusic" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnToggleMusic(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ToggleDayNight" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnToggleDayNight(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ToggleFog" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnToggleFog(InputAction.CallbackContext context);
     }
 }

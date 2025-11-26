@@ -6,6 +6,7 @@ public class PlayerAudio : MonoBehaviour
 {
     // List of different walking sounds
     [SerializeField] private List<AudioClip> _walkingSounds;
+    [SerializeField] private List<AudioClip> _collisionSounds;
 
     // Walking & collision audio sources
     [SerializeField] private AudioSource _walkingAudioSource;
@@ -34,5 +35,32 @@ public class PlayerAudio : MonoBehaviour
     {
         // Stops when the player is not moving.
         _walkingAudioSource.Stop();
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (!hit.gameObject.CompareTag("Enemy"))
+        {
+            PlayCollisionSound();
+        }
+    }
+
+    public void PlayCollisionSound()
+    {
+        // Randomize walking sound if the audio source is not playing.
+        if (!_collisionAudioSource.isPlaying)
+        {
+            int randomCollisionSound = Random.Range(0, _collisionSounds.Count);
+
+            // Keep randomizing for a different sound clip.
+            while (_collisionAudioSource.clip == _collisionSounds[randomCollisionSound])
+            {
+                randomCollisionSound = Random.Range(0, _collisionSounds.Count);
+            }
+
+            // Set audio clip & play.
+            _collisionAudioSource.clip = _collisionSounds[randomCollisionSound];
+            _collisionAudioSource.Play();
+        }
     }
 }
