@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
@@ -13,6 +14,10 @@ public class PlayerMovement : MonoBehaviour
 
     // Movement variables
     [SerializeField] private float _movementSpeed = 5f;
+    [Space]
+
+    // Reference Audio Script
+    [SerializeField] private PlayerAudio _playerAudioScript;
 
     // Player input
     private PlayerActions _inputActions;
@@ -73,6 +78,16 @@ public class PlayerMovement : MonoBehaviour
         // Move player based on input & direction they are facing
         Vector3 moveVector = transform.TransformDirection(velocity);
         _controller.Move(_movementSpeed * Time.unscaledDeltaTime * moveVector);
+
+        // Play walking sound if player is moving
+        if (moveVector != Vector3.zero)
+        {
+            _playerAudioScript.PlayWalkingSound();
+        }
+        else
+        {
+            _playerAudioScript.StopPlayingWalkingSound();
+        }
     }
 
     private void ToggleGodMode(InputAction.CallbackContext callback)
