@@ -406,6 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2653a57d261b34e459f325c93de7ec8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MusicPlayerScript: {fileID: 843508816}
 --- !u!4 &787356175
 Transform:
   m_ObjectHideFlags: 0
@@ -615,8 +616,9 @@ MonoBehaviour:
   _musicSource: {fileID: 843508814}
   _dayTheme: {fileID: 8300000, guid: 2ee33e06b7830b94ba3096ac0be5cd6d, type: 3}
   _nightTheme: {fileID: 8300000, guid: 65b9189f36b48914c8885197840cca16, type: 3}
-  _noFogVolume: 1
-  _fogVolume: 0.5
+  _minimumVolume: 0.25
+  _maximumVolume: 1
+  _maximumModulatingDistance: 5
 --- !u!1 &1134489457
 GameObject:
   m_ObjectHideFlags: 0

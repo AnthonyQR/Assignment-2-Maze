@@ -4,65 +4,59 @@ using UnityEngine.InputSystem;
 
 public class MusicPlayer : MonoBehaviour
 {
-    // Music source reference
+    // Music source reference.
     [SerializeField] private AudioSource _musicSource;
     [Space]
 
-    // Day & Night themes
+    // Day & Night themes.
     [SerializeField] private AudioClip _dayTheme;
     [SerializeField] private AudioClip _nightTheme;
     [Space]
 
-    // Fog volume
-    [SerializeField][Range(0.0f, 1.0f)] private float _noFogVolume;
-    [SerializeField][Range(0.0f, 1.0f)] private float _fogVolume;
+    // Volume settings.
+    [SerializeField][Range(0.0f, 1.0f)] private float _minimumVolume;
+    [SerializeField][Range(0.0f, 1.0f)] private float _maximumVolume;
+
+    // Fog bool.
     private bool _isFogEnabled = false;
 
-    // Player input
+    // Maximum distance threshold from player to enemy.
+    // Distance needs to be lower than this float to start modulating volume.
+    [SerializeField] private float _maximumModulatingDistance;
+
+    // Player input.
     private PlayerActions _inputActions;
     private InputAction _toggleMusic;
-    private InputAction _toggleDayNight;
-    private InputAction _toggleFog;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Awake()
     {
-        Debug.Log("Music");
+        // Set up music player
         _inputActions = new PlayerActions();
         _isFogEnabled = false;
         _musicSource.clip = _dayTheme;
-        _musicSource.volume = _noFogVolume;
+        _musicSource.volume = _minimumVolume;
     }
 
     private void OnEnable()
     {
+        // Add toggle music input to function
         _toggleMusic = _inputActions.Ingame.ToggleMusic;
-        _toggleDayNight = _inputActions.Ingame.ToggleDayNight;
-        _toggleFog = _inputActions.Ingame.ToggleFog;
-
         _toggleMusic.performed += ToggleMusic;
-        _toggleDayNight.performed += ToggleDayNight;
-        _toggleFog.performed += ToggleFog;
-
         _toggleMusic.Enable();
-        _toggleDayNight.Enable();
-        _toggleFog.Enable();
+        
     }
 
     private void OnDisable()
     {
+        // Remove toggle music input from function
         _toggleMusic.performed -= ToggleMusic;
-        _toggleDayNight.performed -= ToggleDayNight;
-        _toggleFog.performed -= ToggleFog;
-
-        _toggleMusic.Disable();
-        _toggleDayNight.Disable();
-        _toggleFog.Disable();
+        _toggleMusic.Disable(); 
     }
 
     private void ToggleMusic(InputAction.CallbackContext context)
     {
-        Debug.Log("Music");
+        // Toggle music on / off.
         if (_musicSource.isPlaying)
         {
             _musicSource.Stop();
@@ -72,8 +66,9 @@ public class MusicPlayer : MonoBehaviour
             _musicSource.Play();
         }
     }
-    private void ToggleDayNight(InputAction.CallbackContext context)
+    public void ToggleDayNight()
     {
+        // Swap between day & night themes
         _musicSource.Stop();
 
         if (_musicSource.clip == _dayTheme)
@@ -88,17 +83,57 @@ public class MusicPlayer : MonoBehaviour
         _musicSource.Play();
     }
 
-    private void ToggleFog(InputAction.CallbackContext context)
+    public void ToggleFog()
     {
+        // Enable / disable fog.
+        // Volume changes in ModulateVolume depending on this bool.
         if (_isFogEnabled)
         {
             _isFogEnabled = false;
-            _musicSource.volume = _noFogVolume;
         }
         else
         {
             _isFogEnabled = true;
-            _musicSource.volume = _fogVolume;
         }
+    }
+
+    public void ModulateVolume(GameObject player, GameObject enemy)
+    {
+        // Get player & enemy positions
+        Vector3 PlayerPosition = player.transform.position;
+        Vector3 EnemyPosition = enemy.transform.position;
+
+        // Get x & z differences for player & enemy
+        float EnemyToPlayerX = EnemyPosition.x - PlayerPosition.x;
+        float EnemyToPlayerZ = EnemyPosition.z - PlayerPosition.z;
+
+        // Calculate total distance from player & enemy with pythagoras.
+        float EnemyToPlayer = Mathf.Sqrt(Mathf.Pow(EnemyToPlayerX, 2) 
+            + Mathf.Pow(EnemyToPlayerZ, 2));
+
+        // Prepare new music float for calculations
+        float newMusicVolume = _minimumVolume;
+
+        // Change volume if player is close enough to the enemy.
+        if (EnemyToPlayer < _maximumModulatingDistance)
+        {
+            newMusicVolume = (_maximumModulatingDistance - EnemyToPlayer) 
+                / _maximumModulatingDistance * _maximumVolume;
+
+            // Make sure volume is above the minimum.
+            if (newMusicVolume < _minimumVolume)
+            {
+                newMusicVolume = _minimumVolume;
+            }
+        }
+
+        // Half volume if fog is enabled.
+        if (_isFogEnabled)
+        {
+            newMusicVolume /= 2;
+        }
+
+        // Change volume of the music source.
+        _musicSource.volume = newMusicVolume;
     }
 }
