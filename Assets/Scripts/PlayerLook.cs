@@ -34,7 +34,7 @@ public class PlayerLook : MonoBehaviour
     }
 
 
-    private void Update()
+    private void FixedUpdate()
     {
         Vector2 v2 = look.ReadValue<Vector2>();
         
