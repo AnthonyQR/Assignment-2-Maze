@@ -47,6 +47,7 @@ public class PlayerLook : MonoBehaviour
         // prevent players from doing 360s with the camera
         rotationY = Mathf.Clamp(rotationY, -90f, 90f);
 
+        // Also rotate the ball spawn point for player aiming;
         transform.localRotation = Quaternion.Euler(rotationY, 0f, 0f);
         ballSpawnPoint.localRotation = Quaternion.Euler(rotationY, 0f, 0f);
     }

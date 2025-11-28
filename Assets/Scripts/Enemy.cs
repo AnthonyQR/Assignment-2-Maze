@@ -5,12 +5,20 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private GameObject _target;
     [SerializeField] private NavMeshAgent _navMeshAgent;
+    [Space]
+
+    [Header("Enemy Stats")]
+    [SerializeField] private int _maxHealth;
+    [SerializeField] private float _respawnTimer;
+    [SerializeField] private GameManager _gameManagerScript;
+    private int _currentHealth;
 
     private Vector3 _startingPosition;
 
     private void Awake()
     {
         _startingPosition = transform.position;
+        _currentHealth = _maxHealth;
     }
 
     private void Start()
@@ -19,6 +27,7 @@ public class Enemy : MonoBehaviour
         {
             _target = GameObject.FindGameObjectWithTag("Player");
         }
+        _gameManagerScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
     private void FixedUpdate()
     {
@@ -37,5 +46,16 @@ public class Enemy : MonoBehaviour
     public void ResetPosition()
     {
         _navMeshAgent.Warp(_startingPosition);
+    }
+
+    public void Hit()
+    {
+        _currentHealth -= 1;
+        if (_currentHealth <= 0)
+        {
+            _currentHealth = _maxHealth;
+            _gameManagerScript.StartEnemyRespawnTimer(_respawnTimer);
+            gameObject.SetActive(false);
+        }
     }
 }

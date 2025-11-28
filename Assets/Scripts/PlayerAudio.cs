@@ -41,22 +41,26 @@ public class PlayerAudio : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
+        // Ignore collisions with Enemy.
         if (hit.gameObject.CompareTag("Enemy"))
         {
             return;
         }
 
+        // Ignore collisions with floor.
         if (hit.transform.position.y < transform.position.y)
         {
             return;
         }
 
+        // Ignore collisions if player is not moving enough.
         float playerVelocity = _controller.velocity.magnitude;
         if (playerVelocity < 0.5f)
         {
             return;
         }
 
+        // Play collision sound otherwise.
         PlayCollisionSound();
     }
 

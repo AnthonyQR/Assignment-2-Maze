@@ -188,4 +188,9 @@ public class MazeGenerator : MonoBehaviour
 
         return unvisitedCells;
     }
+
+    public (int, int) GetMazeSize()
+    {
+        return (_mazeWidth, _mazeDepth);
+    }
 }
