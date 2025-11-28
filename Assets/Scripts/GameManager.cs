@@ -139,7 +139,8 @@ public class GameManager : MonoBehaviour
         // Respawn Enemy in the maze.
         int enemyX = Random.Range(0, _mazeWidth - 1);
         int enemyZ = Random.Range(0, _mazeDepth - 1);
-        Enemy.transform.position = new Vector3(enemyX, 0f, enemyZ);
+        Vector3 newEnemyPosition = new Vector3(enemyX, 0f, enemyZ);
         Enemy.SetActive(true);
+        Enemy.GetComponent<Enemy>().Respawn(newEnemyPosition);
     }
 }
