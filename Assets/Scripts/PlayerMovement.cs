@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     // Get character controller to move
     [SerializeField] private CharacterController _controller;
+    [SerializeField] private Rigidbody _rb;
     [SerializeField] private LayerMask _defaultLayer;
     [SerializeField] private LayerMask _exclusionLayer;
     [SerializeField] private Camera _playerCamera;
@@ -14,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
 
     // Movement variables
     [SerializeField] private float _movementSpeed = 5f;
+    [SerializeField] private float _gravity = -0.4f;
+    private float _fallingVelocity = 0f; 
     [Space]
 
     // Reference Audio Script
@@ -31,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _controller = GetComponent<CharacterController>();
+        _rb = GetComponent<Rigidbody>();
         _inputActions = new PlayerActions();
     }
 
@@ -75,12 +79,36 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 velocity = new Vector3(v2.x, 0, v2.y);
 
-        // Move player based on input & direction they are facing
-        Vector3 moveVector = transform.TransformDirection(velocity);
-        _controller.Move(_movementSpeed * Time.unscaledDeltaTime * moveVector);
+        // Set x & z velocity based on player input & where they are facing
+        velocity = transform.TransformDirection(velocity);
+        velocity.x *= _movementSpeed * Time.unscaledDeltaTime;
+        velocity.z *= _movementSpeed * Time.unscaledDeltaTime;
 
-        // Play walking sound if player is moving
-        if (moveVector != Vector3.zero)
+        
+        if (_godModeEnabled)
+        {
+            // Don't fall.
+        }
+
+        // Check if player is on the ground.
+        else if (_controller.isGrounded)
+        {
+            // Reset falling velocity & stick player to the ground.
+            velocity.y = -0.05f;
+            _fallingVelocity = 0f;
+        }
+        else
+        {
+            // Accumulate falling velocity & set the current velocity.
+            _fallingVelocity += _gravity * Time.unscaledDeltaTime;
+
+            velocity.y = _fallingVelocity;
+        }
+
+        _controller.Move(velocity);
+
+        // Play walking sound if player is moving on the ground.
+        if (_controller.isGrounded && (velocity.x != 0f || velocity.z != 0f))
         {
             _playerAudioScript.PlayWalkingSound();
         }
@@ -94,11 +122,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!_godModeEnabled)
         {
+            _rb.constraints = RigidbodyConstraints.FreezePositionY
+                | RigidbodyConstraints.FreezeRotation;
             _controller.excludeLayers = _exclusionLayer;
             _godModeEnabled = true;
+            
         }
         else
         {
+            _rb.constraints = RigidbodyConstraints.FreezeRotation;
             _controller.excludeLayers = _defaultLayer;
             _godModeEnabled = false;
         }

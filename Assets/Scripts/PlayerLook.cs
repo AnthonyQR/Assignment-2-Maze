@@ -5,6 +5,7 @@ public class PlayerLook : MonoBehaviour
 {
     public float sensitivity = 1f;
     public Transform playerBody;
+    public Transform ballSpawnPoint;
 
     private PlayerActions inputActions;
     private InputAction look;
@@ -47,5 +48,6 @@ public class PlayerLook : MonoBehaviour
         rotationY = Mathf.Clamp(rotationY, -90f, 90f);
 
         transform.localRotation = Quaternion.Euler(rotationY, 0f, 0f);
+        ballSpawnPoint.localRotation = Quaternion.Euler(rotationY, 0f, 0f);
     }
 }

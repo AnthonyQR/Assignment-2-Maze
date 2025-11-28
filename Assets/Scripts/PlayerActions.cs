@@ -163,6 +163,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ThrowBall"",
+                    ""type"": ""Button"",
+                    ""id"": ""3aebc6ff-4b00-4445-8608-07681b5173e6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -451,6 +460,28 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""action"": ""ToggleFog"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5601c82d-e445-4242-888d-8d5389b6355f"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ThrowBall"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d211558d-a8b9-43f3-875d-7a4f87ba0034"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ThrowBall"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -528,6 +559,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         m_Ingame_ToggleMusic = m_Ingame.FindAction("ToggleMusic", throwIfNotFound: true);
         m_Ingame_ToggleDayNight = m_Ingame.FindAction("ToggleDayNight", throwIfNotFound: true);
         m_Ingame_ToggleFog = m_Ingame.FindAction("ToggleFog", throwIfNotFound: true);
+        m_Ingame_ThrowBall = m_Ingame.FindAction("ThrowBall", throwIfNotFound: true);
     }
 
     ~@PlayerActions()
@@ -616,6 +648,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Ingame_ToggleMusic;
     private readonly InputAction m_Ingame_ToggleDayNight;
     private readonly InputAction m_Ingame_ToggleFog;
+    private readonly InputAction m_Ingame_ThrowBall;
     /// <summary>
     /// Provides access to input actions defined in input action map "Ingame".
     /// </summary>
@@ -659,6 +692,10 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Ingame/ToggleFog".
         /// </summary>
         public InputAction @ToggleFog => m_Wrapper.m_Ingame_ToggleFog;
+        /// <summary>
+        /// Provides access to the underlying input action "Ingame/ThrowBall".
+        /// </summary>
+        public InputAction @ThrowBall => m_Wrapper.m_Ingame_ThrowBall;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -709,6 +746,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @ToggleFog.started += instance.OnToggleFog;
             @ToggleFog.performed += instance.OnToggleFog;
             @ToggleFog.canceled += instance.OnToggleFog;
+            @ThrowBall.started += instance.OnThrowBall;
+            @ThrowBall.performed += instance.OnThrowBall;
+            @ThrowBall.canceled += instance.OnThrowBall;
         }
 
         /// <summary>
@@ -744,6 +784,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @ToggleFog.started -= instance.OnToggleFog;
             @ToggleFog.performed -= instance.OnToggleFog;
             @ToggleFog.canceled -= instance.OnToggleFog;
+            @ThrowBall.started -= instance.OnThrowBall;
+            @ThrowBall.performed -= instance.OnThrowBall;
+            @ThrowBall.canceled -= instance.OnThrowBall;
         }
 
         /// <summary>
@@ -905,5 +948,12 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnToggleFog(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ThrowBall" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnThrowBall(InputAction.CallbackContext context);
     }
 }

@@ -12,6 +12,8 @@ public class PlayerAudio : MonoBehaviour
     [SerializeField] private AudioSource _walkingAudioSource;
     [SerializeField] private AudioSource _collisionAudioSource;
 
+    [SerializeField] private CharacterController _controller;
+
     public void PlayWalkingSound()
     {
         // Randomize walking sound if the audio source is not playing.
@@ -39,10 +41,23 @@ public class PlayerAudio : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (!hit.gameObject.CompareTag("Enemy"))
+        if (hit.gameObject.CompareTag("Enemy"))
         {
-            PlayCollisionSound();
+            return;
         }
+
+        if (hit.transform.position.y < transform.position.y)
+        {
+            return;
+        }
+
+        float playerVelocity = _controller.velocity.magnitude;
+        if (playerVelocity < 0.5f)
+        {
+            return;
+        }
+
+        PlayCollisionSound();
     }
 
     public void PlayCollisionSound()
