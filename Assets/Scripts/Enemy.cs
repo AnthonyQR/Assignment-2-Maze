@@ -18,21 +18,26 @@ public class Enemy : MonoBehaviour
     [Header("Enemy Stats")]
     [SerializeField] private int _maxHealth;
     [SerializeField] private float _respawnTimer;
-    [SerializeField] private float _disableDelay;
-    [SerializeField] private GameManager _gameManagerScript;
     private int _currentHealth;
+    private bool _isDead;
+    private float _currentRespawnTimer;
 
     [Header("Audio")]
     [SerializeField] private AudioClip _deathSound;
     [SerializeField] private AudioSource _enemyAudioSource;
     
-
     private Vector3 _startingPosition;
+
+    // Reference Maze Size
+    private int _mazeWidth;
+    private int _mazeDepth;
 
     private void Awake()
     {
         _startingPosition = transform.position;
         _currentHealth = _maxHealth;
+        _isDead = false;
+        _currentRespawnTimer = _respawnTimer;
     }
 
     private void Start()
@@ -41,11 +46,23 @@ public class Enemy : MonoBehaviour
         {
             _target = GameObject.FindGameObjectWithTag("Player");
         }
-        _gameManagerScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        // Get size of the maze.
+        MazeGenerator _mazeGeneratorScript = GameObject.FindGameObjectWithTag("MazeGenerator").GetComponent<MazeGenerator>();
+        (_mazeWidth, _mazeDepth) = _mazeGeneratorScript.GetMazeSize();
     }
     private void FixedUpdate()
     {
         _navMeshAgent.SetDestination(_target.transform.position);
+
+        // Respawn enemy timer.
+        if (_isDead)
+        {
+            _currentRespawnTimer -= Time.unscaledDeltaTime;
+            if (_currentRespawnTimer <= 0)
+            {
+                Respawn();
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -73,10 +90,18 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        // Reset current health.
         _currentHealth = _maxHealth;
-        _gameManagerScript.StartEnemyRespawnTimer(_respawnTimer);
+
+        // Start respawn timer.
+        _currentRespawnTimer = _respawnTimer;
+        _isDead = true;
+
+        // Play audio.
         _enemyAudioSource.clip = _deathSound;
         _enemyAudioSource.Play();
+
+        // Disable visuals & collisions.
         _capsuleCollider.enabled = false;
         foreach(GameObject renderer in _meshRenderers)
         {
@@ -84,14 +109,28 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void Respawn(Vector3 position)
+    public void Respawn()
     {
-        _navMeshAgent.Warp(position);
+        // Reset Bool
+        _isDead = false;
+
+        // Reset Timer
+        _currentRespawnTimer = _respawnTimer;
+
+        // Position enemy.
+        int enemyX = Random.Range(0, _mazeWidth - 1);
+        int enemyZ = Random.Range(0, _mazeDepth - 1);
+        Vector3 newEnemyPosition = new Vector3(enemyX, 0f, enemyZ);
+        _navMeshAgent.Warp(newEnemyPosition);
+
+        // Reenable visuals & collisions.
         _capsuleCollider.enabled = true;
         foreach (GameObject renderer in _meshRenderers)
         {
             renderer.SetActive(true);
         }
+
+        // Play respawn sound.
         _enemyAudioSource.Play();
     }
 }
