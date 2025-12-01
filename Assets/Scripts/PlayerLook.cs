@@ -35,15 +35,15 @@ public class PlayerLook : MonoBehaviour
     }
 
 
-    private void FixedUpdate()
+    private void Update()
     {
         Vector2 v2 = look.ReadValue<Vector2>();
         
-        float rotationX = v2.x * sensitivity; // Rotation on the x axis
+        float rotationX = v2.x * sensitivity * Time.deltaTime; // Rotation on the x axis
         
         playerBody.Rotate(Vector3.up * rotationX);
 
-        rotationY -= v2.y * sensitivity;
+        rotationY -= v2.y * sensitivity * Time.deltaTime;
         // prevent players from doing 360s with the camera
         rotationY = Mathf.Clamp(rotationY, -90f, 90f);
 
