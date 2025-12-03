@@ -5,6 +5,7 @@ public class PlayerLook : MonoBehaviour
 {
     public float sensitivity = 1f;
     public Transform playerBody;
+    public Transform ballSpawnPoint;
 
     private PlayerActions inputActions;
     private InputAction look;
@@ -38,14 +39,16 @@ public class PlayerLook : MonoBehaviour
     {
         Vector2 v2 = look.ReadValue<Vector2>();
         
-        float rotationX = v2.x * sensitivity; // Rotation on the x axis
+        float rotationX = v2.x * sensitivity * Time.deltaTime; // Rotation on the x axis
         
         playerBody.Rotate(Vector3.up * rotationX);
 
-        rotationY -= v2.y * sensitivity;
+        rotationY -= v2.y * sensitivity * Time.deltaTime;
         // prevent players from doing 360s with the camera
         rotationY = Mathf.Clamp(rotationY, -90f, 90f);
 
+        // Also rotate the ball spawn point for player aiming;
         transform.localRotation = Quaternion.Euler(rotationY, 0f, 0f);
+        ballSpawnPoint.localRotation = Quaternion.Euler(rotationY, 0f, 0f);
     }
 }
