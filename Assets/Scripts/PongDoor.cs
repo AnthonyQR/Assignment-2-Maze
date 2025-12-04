@@ -5,6 +5,9 @@ public class PongDoor : MonoBehaviour
 {
     private void OnTriggerEnter(Collider collider)
     {
-        SceneManager.LoadScene("GameScene");
+        if (collider.CompareTag("Player"))
+        {
+            SceneManager.LoadScene("GameScene");
+        } 
     }
 }
