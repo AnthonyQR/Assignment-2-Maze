@@ -13,6 +13,9 @@ public class ShaderController : MonoBehaviour
     private InputAction _toggleFlashlightAction;
     private InputAction _toggleDayNightAction;
 
+    private bool _isNight = false;
+    private float _dayNight = 1f;
+
     private void Awake()
     {
         _inputActions = new PlayerActions();
@@ -56,6 +59,9 @@ public class ShaderController : MonoBehaviour
 
     private void OnToggleDayNight(InputAction.CallbackContext ctx)
     {
-        _dayNightRendererFeature.SetActive(!_dayNightRendererFeature.isActive);
+        _isNight = !_isNight;
+        _dayNight = _isNight ? 0.75f : 0f;
+        Debug.Log("DayNight toggled. IsNight: " + _isNight + ", DayNight value: " + _dayNight);
+        Shader.SetGlobalFloat("_DayNight", _dayNight);
     }
 }
