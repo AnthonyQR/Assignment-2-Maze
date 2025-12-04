@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c22a3736ca89c8b4aa1650f32a96e97b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fogRendererFeature: {fileID: 4269828022187388679, guid: f288ae1f4751b564a96ac7587541f7a2, type: 2}
 --- !u!65 &12737822
 BoxCollider:
   m_ObjectHideFlags: 0
