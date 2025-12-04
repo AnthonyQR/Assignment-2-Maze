@@ -6,7 +6,6 @@ public class ShaderController : MonoBehaviour
 {
     [SerializeField] private FullScreenPassRendererFeature _fogRendererFeature;
     [SerializeField] private GameObject _flashLight;
-    [SerializeField] private FullScreenPassRendererFeature _dayNightRendererFeature;
 
     private PlayerActions _inputActions;
     private InputAction _toggleFogAction;
@@ -14,7 +13,7 @@ public class ShaderController : MonoBehaviour
     private InputAction _toggleDayNightAction;
 
     private bool _isNight = false;
-    private float _dayNight = 1f;
+    private float _dayNight = 0f;
 
     private void Awake()
     {
