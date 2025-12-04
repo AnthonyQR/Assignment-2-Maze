@@ -3,7 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class GameManager : MonoBehaviour
+public class MazeGameManager : MonoBehaviour
 {
     // Player actions
     private PlayerActions _inputActions;
