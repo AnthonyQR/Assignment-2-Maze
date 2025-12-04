@@ -2648,7 +2648,7 @@ MonoBehaviour:
   scoreText2: {fileID: 186603048}
   WinnerDisplay: {fileID: 232168444}
   MainMenuButton: {fileID: 543020875}
-  winScore: 11
+  winScore: 5
 --- !u!4 &2125095845
 Transform:
   m_ObjectHideFlags: 0

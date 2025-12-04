@@ -22,6 +22,11 @@ public class Bumper : MonoBehaviour
         movement.Enable();
     }
 
+    private void OnDisable()
+    {
+        movement.Disable();
+    }
+
     public void Move(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();

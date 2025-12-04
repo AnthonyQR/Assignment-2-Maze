@@ -5,6 +5,7 @@ using UnityEngine.Rendering.Universal;
 public class ShaderController : MonoBehaviour
 {
     [SerializeField] private FullScreenPassRendererFeature _fogRendererFeature;
+    [SerializeField] private FullScreenPassRendererFeature _flashlightRendererFeature;
     [SerializeField] private GameObject _flashLight;
 
     private PlayerActions _inputActions;
@@ -18,6 +19,15 @@ public class ShaderController : MonoBehaviour
     private void Awake()
     {
         _inputActions = new PlayerActions();
+    }
+
+    private void Start()
+    {
+        _flashLight.SetActive(false);
+        _flashlightRendererFeature.SetActive(false);
+        _fogRendererFeature.SetActive(false);
+        _dayNight = 0f;
+        Shader.SetGlobalFloat("_DayNight", _dayNight);
     }
 
     private void OnEnable()
@@ -54,6 +64,7 @@ public class ShaderController : MonoBehaviour
     private void OnToggleFlashlight(InputAction.CallbackContext ctx)
     {
         _flashLight.SetActive(!_flashLight.activeInHierarchy);
+        _flashlightRendererFeature.SetActive(!_flashlightRendererFeature.isActive);
     }
 
     private void OnToggleDayNight(InputAction.CallbackContext ctx)
