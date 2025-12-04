@@ -1,5 +1,4 @@
-﻿using NUnit.Framework;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -71,6 +70,7 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log("Enemy caught the player! Resetting player position.");
             other.gameObject.GetComponent<PlayerMovement>().ResetPosition();
+            ResetPosition();
         }
     }
 

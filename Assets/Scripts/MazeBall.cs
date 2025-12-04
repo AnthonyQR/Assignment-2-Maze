@@ -1,7 +1,7 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class Ball : MonoBehaviour
+public class MazeBall : MonoBehaviour
 {
     [Header("Ball Stats")]
     [SerializeField] private float _ballSpeed;
@@ -18,7 +18,7 @@ public class Ball : MonoBehaviour
     [SerializeField] private AudioClip _ballSound;
     [SerializeField] private AudioSource _ballAudioSource;
     
-    private GameManager _gameManagerScript;
+    private MazeGameManager _gameManagerScript;
     void Start()
     {
         // Move the ball forward depending on where the player is facing.
@@ -31,7 +31,7 @@ public class Ball : MonoBehaviour
         _sphereCollider = GetComponent<SphereCollider>();
         _meshRenderer = GetComponent<MeshRenderer>();
         _gameManagerScript = 
-            GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+            GameObject.FindGameObjectWithTag("GameManager").GetComponent<MazeGameManager>();
     }
 
     private void Update()

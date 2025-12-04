@@ -172,6 +172,33 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleFlashlight"",
+                    ""type"": ""Button"",
+                    ""id"": ""4c6b7ba7-d300-473a-817f-d93ac5910b36"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Save"",
+                    ""type"": ""Button"",
+                    ""id"": ""7824b36b-4e4d-46a7-968f-135888be3b83"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Load"",
+                    ""type"": ""Button"",
+                    ""id"": ""beaeefbd-db8f-4adc-bd46-e36002a78744"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -482,6 +509,50 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""action"": ""ThrowBall"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1ab053ad-71c5-4271-8655-8b5105433d09"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleFlashlight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8c72f441-26c9-41a0-86a5-41b66b2991ec"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleFlashlight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""815f96fc-19e4-479a-970a-3f99976dbc56"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Save"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1983ec9d-dd66-42d1-850e-6be734919d09"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Load"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -560,6 +631,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         m_Ingame_ToggleDayNight = m_Ingame.FindAction("ToggleDayNight", throwIfNotFound: true);
         m_Ingame_ToggleFog = m_Ingame.FindAction("ToggleFog", throwIfNotFound: true);
         m_Ingame_ThrowBall = m_Ingame.FindAction("ThrowBall", throwIfNotFound: true);
+        m_Ingame_ToggleFlashlight = m_Ingame.FindAction("ToggleFlashlight", throwIfNotFound: true);
+        m_Ingame_Save = m_Ingame.FindAction("Save", throwIfNotFound: true);
+        m_Ingame_Load = m_Ingame.FindAction("Load", throwIfNotFound: true);
     }
 
     ~@PlayerActions()
@@ -649,6 +723,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Ingame_ToggleDayNight;
     private readonly InputAction m_Ingame_ToggleFog;
     private readonly InputAction m_Ingame_ThrowBall;
+    private readonly InputAction m_Ingame_ToggleFlashlight;
+    private readonly InputAction m_Ingame_Save;
+    private readonly InputAction m_Ingame_Load;
     /// <summary>
     /// Provides access to input actions defined in input action map "Ingame".
     /// </summary>
@@ -696,6 +773,18 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Ingame/ThrowBall".
         /// </summary>
         public InputAction @ThrowBall => m_Wrapper.m_Ingame_ThrowBall;
+        /// <summary>
+        /// Provides access to the underlying input action "Ingame/ToggleFlashlight".
+        /// </summary>
+        public InputAction @ToggleFlashlight => m_Wrapper.m_Ingame_ToggleFlashlight;
+        /// <summary>
+        /// Provides access to the underlying input action "Ingame/Save".
+        /// </summary>
+        public InputAction @Save => m_Wrapper.m_Ingame_Save;
+        /// <summary>
+        /// Provides access to the underlying input action "Ingame/Load".
+        /// </summary>
+        public InputAction @Load => m_Wrapper.m_Ingame_Load;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -749,6 +838,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @ThrowBall.started += instance.OnThrowBall;
             @ThrowBall.performed += instance.OnThrowBall;
             @ThrowBall.canceled += instance.OnThrowBall;
+            @ToggleFlashlight.started += instance.OnToggleFlashlight;
+            @ToggleFlashlight.performed += instance.OnToggleFlashlight;
+            @ToggleFlashlight.canceled += instance.OnToggleFlashlight;
+            @Save.started += instance.OnSave;
+            @Save.performed += instance.OnSave;
+            @Save.canceled += instance.OnSave;
+            @Load.started += instance.OnLoad;
+            @Load.performed += instance.OnLoad;
+            @Load.canceled += instance.OnLoad;
         }
 
         /// <summary>
@@ -787,6 +885,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @ThrowBall.started -= instance.OnThrowBall;
             @ThrowBall.performed -= instance.OnThrowBall;
             @ThrowBall.canceled -= instance.OnThrowBall;
+            @ToggleFlashlight.started -= instance.OnToggleFlashlight;
+            @ToggleFlashlight.performed -= instance.OnToggleFlashlight;
+            @ToggleFlashlight.canceled -= instance.OnToggleFlashlight;
+            @Save.started -= instance.OnSave;
+            @Save.performed -= instance.OnSave;
+            @Save.canceled -= instance.OnSave;
+            @Load.started -= instance.OnLoad;
+            @Load.performed -= instance.OnLoad;
+            @Load.canceled -= instance.OnLoad;
         }
 
         /// <summary>
@@ -955,5 +1062,26 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnThrowBall(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ToggleFlashlight" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnToggleFlashlight(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Save" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSave(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Load" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLoad(InputAction.CallbackContext context);
     }
 }

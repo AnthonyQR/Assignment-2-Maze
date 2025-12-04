@@ -9,7 +9,7 @@ public class MazeGenerator : MonoBehaviour
     private NavMeshSurface _mazeNavMeshSurface;
 
     [SerializeField]
-    private GameManager _gameManager;
+    private MazeGameManager _gameManager;
 
     [SerializeField]
     private Camera _topDownCamera;
