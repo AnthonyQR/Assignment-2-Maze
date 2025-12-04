@@ -1100,6 +1100,7 @@ GameObject:
   - component: {fileID: 4951743260235738808}
   - component: {fileID: 7026734719311738046}
   - component: {fileID: 6524735722107507768}
+  - component: {fileID: 3141927774345325107}
   m_Layer: 0
   m_Name: PlayerCapsule
   m_TagString: Player
@@ -1341,3 +1342,18 @@ MonoBehaviour:
   _playerBody: {fileID: 5847679658841637956}
   _ballGroup: {fileID: 4603913324956528271}
   _ballSpawnPoint: {fileID: 1493925651890552456}
+--- !u!114 &3141927774345325107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8660373911842123714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfff12ec7dee7a943b8b3f8e766c32f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fogRendererFeature: {fileID: 4269828022187388679, guid: f288ae1f4751b564a96ac7587541f7a2, type: 2}
+  _flashlightRendererFeature: {fileID: 0}
+  _dayNightRendererFeature: {fileID: 0}
