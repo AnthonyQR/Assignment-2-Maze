@@ -1,10 +1,11 @@
-Shader "Tutorial/FogShader"
+Shader "Custom/FogShader"
+// Credit to https://www.youtube.com/watch?v=8P338C9vYEE
 {
     Properties
     {
         _Color("Color", Color) = (1, 1, 1, 1)
         _MaxDistance("Max distance", float) = 100
-        _StepSize("Step size", Range(0.01, 20)) = 1
+        _StepSize("Step size", Range(0.1, 20)) = 1
         _DensityMultiplier("Density multiplier", Range(0, 10)) = 1
         _NoiseOffset("Noise offset", float) = 0
         
