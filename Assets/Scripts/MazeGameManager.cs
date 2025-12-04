@@ -1,6 +1,7 @@
 ﻿using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 public class MazeGameManager : MonoBehaviour
@@ -150,6 +151,6 @@ public class MazeGameManager : MonoBehaviour
         Player.transform.position = loadedPlayerPosition;
         playerCharacterController.enabled = true;
 
-        Enemy.transform.position = loadedEnemyPosition;
+        Enemy.GetComponent<NavMeshAgent>().Warp(loadedEnemyPosition);
     }
 }
